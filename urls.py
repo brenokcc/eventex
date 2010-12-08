@@ -1,24 +1,24 @@
 from django.conf.urls.defaults import *
-from core.views import homepage
-from django.conf import settings
+
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^eventex/', include('eventex.foo.urls')),
+    # (r'^project/', include('project.foo.urls')),
 
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
+    # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # (r'^admin/(.*)', admin.site.root),
-    (r'^$', homepage),
+    (r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'core.views.homepage', name='homepage'),
+    (r'^inscricao/', include('subscription.urls', namespace='subscription')),
 )
 
+from django.conf import settings
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve',
