@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -9,7 +10,7 @@ from subscription.utils import send_subscription_email
 
 
 def new(request):
-    form = SubscriptionForm()
+    form = SubscriptionForm(initial={'name': 'Entre o seu nome', 'cpf': 'Digite o seu CPF sem pontos', 'email': 'Informe o seu email', 'phone': 'Qual seu telefone de contato?',})
     context = RequestContext(request, {'form': form})
     return render_to_response('subscription/new.html', context)
 
@@ -36,3 +37,5 @@ def success(request, id):
     subscription = get_object_or_404(Subscription, pk=id)
     context = RequestContext(request, {'subscription': subscription})
     return render_to_response('subscription/success.html', context)
+
+
